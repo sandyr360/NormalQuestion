@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something Special 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 20px;
+            animation: floatUp 6s ease-in infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px 50px;
+            text-align: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            position: relative;
+            max-width: 550px;
+            margin: 20px;
+            animation: cardPop 0.6s ease-out;
+        }
+
+        @keyframes cardPop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .stage { display: none; animation: fadeIn 0.5s ease-out; }
+        .stage.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .emoji-top {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .question {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .pickup-line {
+            font-size: 18px;
+            color: #764ba2;
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .hearts-decoration {
+            font-size: 22px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .math-input {
+            padding: 12px 20px;
+            font-size: 22px;
+            font-family: 'Poppins', sans-serif;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            width: 100px;
+            text-align: center;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 10px 0;
+        }
+
+        .btn-yes {
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(17, 153, 142, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .btn-no-static {
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(235, 51, 73, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-no-static:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .btn-no {
+            padding: 14px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            color: white;
+            box-shadow: 0 8px 25px rgba(235, 51, 73, 0.4);
+            transition: all 0.2s ease;
+            position: fixed;
+            z-index: 100;
+        }
+
+        .correct-answer {
+            display: none;
+            font-size: 24px;
+            font-weight: 700;
+            color: #11998e;
+            margin-bottom: 15px;
+            animation: popIn 0.5s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .correct-answer.show { display: block; }
+
+        .compliment-text {
+            font-size: 22px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .big-heart {
+            font-size: 80px;
+            animation: heartBeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .success-message { display: none; animation: successPop 0.5s ease-out; }
+        .success-message.show { display: block; }
+
+        @keyframes successPop {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .success-emoji {
+            font-size: 70px;
+            margin-bottom: 15px;
+            animation: celebrate 0.5s ease-in-out infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .success-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: #11998e;
+            margin-bottom: 10px;
+        }
+
+        .success-subtext { font-size: 16px; color: #666; }
+        .hidden { display: none !important; }
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            animation: confettiFall 3s linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 25px 20px;
+                margin: 10px;
+                border-radius: 25px;
+            }
+            .emoji-top { font-size: 45px; }
+            .question { font-size: 20px; }
+            .subtitle, .pickup-line { font-size: 15px; }
+            .btn-yes, .btn-no-static, .btn-no {
+                padding: 12px 30px;
+                font-size: 15px;
+            }
+            .btn { padding: 10px 25px; font-size: 14px; }
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+            }
+            .success-emoji { font-size: 55px; }
+            .success-text { font-size: 20px; }
+            .big-heart { font-size: 60px; }
+            .compliment-text { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <div class="card">
+        <!-- Stage 1: Math Question -->
+        <div class="stage active" id="stage1">
+            <div class="emoji-top">🤔✨</div>
+            <h1 class="question">Quick Math Test!</h1>
+            <p class="subtitle">What is 1 + 1 = ?</p>
+            <div class="correct-answer" id="correctAnswer">Actually... the answer is US! 💕</div>
+            <input type="text" class="math-input" id="mathInput" maxlength="3" placeholder="?">
+            <br>
+            <button class="btn btn-primary" onclick="checkMath()">Submit 📝</button>
+        </div>
+
+        <!-- Stage 2: Magician Pickup Line -->
+        <div class="stage" id="stage2">
+            <div class="emoji-top">✨🎩✨</div>
+            <p class="pickup-line">"Are you a magician? ✨<br>Because whenever I look at you, everyone else disappears..."</p>
+            <div class="hearts-decoration">💫 💖 💫</div>
+            <button class="btn btn-primary" onclick="nextStage(3)">Hehe, Continue 😊</button>
+        </div>
+
+        <!-- Stage 3: Pizza Question -->
+        <div class="stage" id="stage3">
+            <div class="emoji-top">🍕😋</div>
+            <h1 class="question">Important Question!</h1>
+            <p class="pickup-line">"Would you share your pizza with me? 🍕"</p>
+            <p class="subtitle">Because that's true love... 💕</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('Pizza', 'Yes'); nextStage(4)">Yes! 🍕</button>
+                <button class="btn-no-static" onclick="trackResponse('Pizza', 'No'); nextStage(4)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 4: Umbrella Question -->
+        <div class="stage" id="stage4">
+            <div class="emoji-top">☔💕</div>
+            <h1 class="question">What about this...</h1>
+            <p class="pickup-line">"Would you share your umbrella with me in the rain? ☔"</p>
+            <p class="subtitle">Getting wet together sounds romantic 💦</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('Umbrella', 'Yes'); nextStage(5)">Yes! ☔</button>
+                <button class="btn-no-static" onclick="trackResponse('Umbrella', 'No'); nextStage(5)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 5: Google Maps Pickup Line -->
+        <div class="stage" id="stage5">
+            <div class="emoji-top">🗺️💕</div>
+            <p class="pickup-line">"Do you have Google Maps? 🗺️<br>Because I just got lost in your eyes..."</p>
+            <div class="hearts-decoration">👀 ✨ 💖 ✨ 👀</div>
+            <button class="btn btn-primary" onclick="nextStage(6)">Aww! What's next? 🥰</button>
+        </div>
+
+        <!-- Stage 6: Fries Question -->
+        <div class="stage" id="stage6">
+            <div class="emoji-top">🍟😜</div>
+            <h1 class="question">Be honest...</h1>
+            <p class="pickup-line">"Would you let me steal your fries? 🍟"</p>
+            <p class="subtitle">This is the real test! 😄</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('Fries', 'Yes'); nextStage(7)">Yes! 🍟</button>
+                <button class="btn-no-static" onclick="trackResponse('Fries', 'No'); nextStage(7)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 7: Sun Pickup Line -->
+        <div class="stage" id="stage7">
+            <div class="emoji-top">☀️✨</div>
+            <p class="pickup-line">"Are you the sun? ☀️<br>Because you brighten up my day..."</p>
+            <div class="hearts-decoration">🌅 💖 🌅</div>
+            <button class="btn btn-primary" onclick="nextStage(8)">That's sweet! 😊</button>
+        </div>
+
+        <!-- Stage 8: Earphones Question -->
+        <div class="stage" id="stage8">
+            <div class="emoji-top">🎧💕</div>
+            <h1 class="question">Music lovers question...</h1>
+            <p class="pickup-line">"Would you share your earphones with me? 🎧"</p>
+            <p class="subtitle">So we can vibe together 🎵</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('Earphones', 'Yes'); nextStage(9)">Yes! 🎧</button>
+                <button class="btn-no-static" onclick="trackResponse('Earphones', 'No'); nextStage(9)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 9: Camera Pickup Line -->
+        <div class="stage" id="stage9">
+            <div class="emoji-top">📷😊</div>
+            <p class="pickup-line">"Are you a camera? 📷<br>Because every time I see you, I smile..."</p>
+            <div class="hearts-decoration">📸 💕 😊 💕 📸</div>
+            <button class="btn btn-primary" onclick="nextStage(10)">That's so sweet! 🥰</button>
+        </div>
+
+        <!-- Stage 10: Long Drive Question -->
+        <div class="stage" id="stage10">
+            <div class="emoji-top">🚗💨</div>
+            <h1 class="question">Adventure time!</h1>
+            <p class="pickup-line">"Would you go on a long drive with me? 🚗"</p>
+            <p class="subtitle">Windows down, music up! 🎵</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('Long Drive', 'Yes'); nextStage(11)">Yes! 🚗</button>
+                <button class="btn-no-static" onclick="trackResponse('Long Drive', 'No'); nextStage(11)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 11: Google Pickup Line -->
+        <div class="stage" id="stage11">
+            <div class="emoji-top">🌈✨</div>
+            <p class="pickup-line">"Is your name Google? 🔍<br>Because you have everything I'm searching for..."</p>
+            <div class="hearts-decoration">💫 💖 💫</div>
+            <button class="btn btn-primary" onclick="nextStage(12)">Haha! Continue 😆</button>
+        </div>
+
+        <!-- Stage 12: Ice Cream Question -->
+        <div class="stage" id="stage12">
+            <div class="emoji-top">🍦😋</div>
+            <h1 class="question">Sweet question!</h1>
+            <p class="pickup-line">"Would you share ice cream with me? 🍦"</p>
+            <p class="subtitle">Same cone, same spoon? 👀</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('Ice Cream', 'Yes'); nextStage(13)">Yes! 🍦</button>
+                <button class="btn-no-static" onclick="trackResponse('Ice Cream', 'No'); nextStage(13)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 13: Chocolate Pickup Line -->
+        <div class="stage" id="stage13">
+            <div class="emoji-top">🍫💕</div>
+            <p class="pickup-line">"Are you chocolate? 🍫<br>Because you make everything better..."</p>
+            <div class="hearts-decoration">🍬 💖 🍬</div>
+            <button class="btn btn-primary" onclick="nextStage(14)">So cheesy! 😊</button>
+        </div>
+
+        <!-- Stage 14: Stars Question -->
+        <div class="stage" id="stage14">
+            <div class="emoji-top">🌙✨</div>
+            <h1 class="question">Romantic one...</h1>
+            <p class="pickup-line">"Would you watch the stars with me? 🌟"</p>
+            <p class="subtitle">Just you, me, and the night sky... 💫</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('Stars', 'Yes'); nextStage(15)">Yes! 🌙</button>
+                <button class="btn-no-static" onclick="trackResponse('Stars', 'No'); nextStage(15)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 15: 2am Talk Question -->
+        <div class="stage" id="stage15">
+            <div class="emoji-top">📞🌙</div>
+            <h1 class="question">Late night question...</h1>
+            <p class="pickup-line">"Would you talk to me at 2am when you can't sleep? 📞"</p>
+            <p class="subtitle">I'd stay up for you... 💭</p>
+            <div class="buttons-container">
+                <button class="btn-yes" onclick="trackResponse('2am Talk', 'Yes'); nextStage(16)">Yes! 📞</button>
+                <button class="btn-no-static" onclick="trackResponse('2am Talk', 'No'); nextStage(16)">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Stage 16: Smile Compliment -->
+        <div class="stage" id="stage16">
+            <div class="big-heart">💖</div>
+            <p class="compliment-text">You know what?</p>
+            <p class="pickup-line">"Your smile could light up the whole city 🌃✨"</p>
+            <div class="hearts-decoration">💕 🌟 💕</div>
+            <button class="btn btn-primary" onclick="nextStage(17)">Aww! 😊</button>
+        </div>
+
+        <!-- Stage 17: Boring Days Compliment -->
+        <div class="stage" id="stage17">
+            <div class="emoji-top">💫✨</div>
+            <p class="compliment-text">Also...</p>
+            <p class="pickup-line">"You make boring days feel exciting 💫"</p>
+            <p class="subtitle">Just by being you ✨</p>
+            <div class="hearts-decoration">🌟 💖 🌟</div>
+            <button class="btn btn-primary" onclick="nextStage(18)">That's sweet! 🥰</button>
+        </div>
+
+        <!-- Stage 18: Phone Compliment -->
+        <div class="stage" id="stage18">
+            <div class="emoji-top">📱💕</div>
+            <p class="compliment-text">Can I be honest?</p>
+            <p class="pickup-line">"You're the reason I check my phone so much... 📱💖"</p>
+            <p class="subtitle">Hoping to see a message from you 🥺</p>
+            <div class="hearts-decoration">💌 ✨ 💕 ✨ 💌</div>
+            <button class="btn btn-primary" onclick="nextStage(19)">Continue 💗</button>
+        </div>
+
+        <!-- Stage 19: Best Part Compliment -->
+        <div class="stage" id="stage19">
+            <div class="emoji-top">🎁💕</div>
+            <p class="compliment-text">One more thing...</p>
+            <p class="pickup-line">"Talking to you is the best part of my day 🎁"</p>
+            <p class="subtitle">No matter how long or short 💬</p>
+            <div class="hearts-decoration">💖 ✨ 💖</div>
+            <button class="btn btn-primary" onclick="nextStage(20)">So sweet! 🥹</button>
+        </div>
+
+        <!-- Stage 20: Smile for no reason Compliment -->
+        <div class="stage" id="stage20">
+            <div class="emoji-top">🌻😊</div>
+            <p class="compliment-text">And lastly...</p>
+            <p class="pickup-line">"You're the reason I smile for no reason 🌻"</p>
+            <p class="subtitle">Just thinking of you makes me happy 💭</p>
+            <div class="hearts-decoration">😊 💕 😊</div>
+            <button class="btn btn-primary" onclick="nextStage(21)">What's next? 💖</button>
+        </div>
+
+        <!-- Stage 21: Final Question -->
+        <div class="stage" id="stage21">
+            <div class="emoji-top">🥺💕</div>
+            <h1 class="question">Okay, here's my real question...</h1>
+            <p class="subtitle">Can I consider you as my special friend? 💖</p>
+            <div class="hearts-decoration">💖 💗 💖 💗 💖</div>
+            <div class="buttons-container" id="buttonsContainer">
+                <button class="btn-yes" onclick="trackResponse('Special Friend', 'Yes'); sayYes()">Yes! 💚</button>
+                <button class="btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <div class="success-emoji">🎉🥳💖</div>
+            <h2 class="success-text">YAAAY! 🎊</h2>
+            <p class="success-subtext">You just made me the happiest person! 💕</p>
+            <p class="pickup-line">"I promise to always make you smile 😊"</p>
+            <div class="hearts-decoration">🤝 💖 ✨ 💖 🤝</div>
+        </div>
+    </div>
+
+    <script>
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['💖', '💕', '💗', '💓', '💝', '💘', '❤️', '🩷', '✨', '⭐', '🌟'];
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    container.appendChild(heart);
+                    setTimeout(() => heart.remove(), 10000);
+                }, i * 400);
+            }
+        }
+        createFloatingHearts();
+        setInterval(createFloatingHearts, 8000);
+
+        function checkMath() {
+            const input = document.getElementById('mathInput').value.trim();
+            if (input === '') return;
+            document.getElementById('correctAnswer').classList.add('show');
+            setTimeout(() => nextStage(2), 2000);
+        }
+
+        document.getElementById('mathInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkMath();
+        });
+
+        function nextStage(stageNum) {
+            document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+            document.getElementById('stage' + stageNum).classList.add('active');
+            if (stageNum === 21) setTimeout(initNoButton, 100);
+        }
+
+        const TELEGRAM_BOT_TOKEN = '8569975887:AAGSJ3QNNySKK7aluTYY611eggHUZGAw8kI';
+        const TELEGRAM_CHAT_ID = '1108311830';
+
+        function trackResponse(question, answer) {
+            const emoji = answer === 'Yes' ? '💚✅' : '😢❌';
+            const message = `${emoji} *Response!*\n\n📝 *Question:* ${question}\n💬 *Answer:* ${answer}\n⏰ *Time:* ${new Date().toLocaleString()}`;
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'Markdown' })
+            }).catch(err => console.log('Sent'));
+        }
+
+        const noBtn = document.getElementById('noBtn');
+
+        function moveButton() {
+            const padding = 20;
+            const maxX = window.innerWidth - 150 - padding;
+            const maxY = window.innerHeight - 60 - padding;
+            noBtn.style.left = (Math.random() * (maxX - padding) + padding) + 'px';
+            noBtn.style.top = (Math.random() * (maxY - padding) + padding) + 'px';
+            const texts = ['No 😢', 'Nope 😭', 'Never! 😤', 'Why not? 🥺', 'Think again! 💭', 'Please? 🙏', 'Catch me! 🏃', "Can't click! 😜", 'Too slow! 💨', 'Hehe! 😝'];
+            noBtn.textContent = texts[Math.floor(Math.random() * texts.length)];
+        }
+
+        function initNoButton() {
+            const yesBtn = document.getElementById('stage21').querySelector('.btn-yes');
+            if (yesBtn) {
+                const rect = yesBtn.getBoundingClientRect();
+                noBtn.style.left = (rect.right + 20) + 'px';
+                noBtn.style.top = rect.top + 'px';
+            }
+        }
+
+        function sayYes() {
+            document.getElementById('stage21').classList.add('hidden');
+            document.getElementById('successMessage').classList.add('show');
+            noBtn.style.display = 'none';
+            createConfetti();
+            createFloatingHearts();
+        }
+
+        function createConfetti() {
+            const shapes = ['🎊', '🎉', '⭐', '✨', '💖', '🌟', '💕', '🎀', '💝'];
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    confetti.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    document.body.appendChild(confetti);
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveButton(); });
+    </script>
+</body>
+</html>
